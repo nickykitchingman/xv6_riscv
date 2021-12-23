@@ -132,7 +132,9 @@ UPROGS=\
 	$U/_grind\
 	$U/_wc\
 	$U/_zombie\
-	$U/_mysh\
+	$U/_hw\
+	$U/_fork_process\
+	$U/_ping_pong\
 
 fs.img: mkfs/mkfs README $(UPROGS)
 	mkfs/mkfs fs.img README $(UPROGS)
