@@ -445,7 +445,20 @@ scheduler(void)
     // Avoid deadlock by ensuring that devices can interrupt.
     intr_on();
 
+    // loop processes - age and find highest priority level
+    // decide timeslice for priority level
+    //
+    // if priority level == 3
+    //   find first runnable process and swtch
+    // else
+    //   find next runnable at priority level 
+    //      that hasn't used up time slice (in ticksused)
+    //      or has voluntarily relinquished time and swtch
+    //
+    //   loop through processes and reset time slices that are used up - decrease these priorities
+
     for(p = proc; p < &proc[NPROC]; p++) {
+
       acquire(&p->lock);
       if(p->state == RUNNABLE) {
         // Switch to chosen process.  It is the process's job
