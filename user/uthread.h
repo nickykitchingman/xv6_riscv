@@ -1,9 +1,6 @@
 #include "kernel/types.h"
+#include "kernel/spinlock.h"
 #include "thread_switch.S"
-
-struct thread
-{
-};
 
 struct thread_context
 {
@@ -23,6 +20,26 @@ struct thread_context
     uint64 s11;
 };
 
+enum threadstate
+{
+    TUNUSED,
+    TUSED,
+    TSLEEPING,
+    TRUNNABLE,
+    TRUNNING
+};
+
+struct thread
+{
+    struct spinlock lock;
+
+    enum threadstate state;
+    struct thread_context *context;
+    void *chan;
+};
+
 struct thread *thread_create();
 void thread_switch(struct thread_context *, struct thread_context *);
 void thread_join(struct thread *);
+
+#define NTHREAD 64

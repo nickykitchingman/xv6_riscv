@@ -1,6 +1,6 @@
 # Context switch
 #
-#   void swtch(struct thread_context *old, struct thread_context *new);
+#   void thread_switch(struct thread_context *old, struct thread_context *new);
 # 
 # Switches from old thread to new thread
 # Save current registers in old. Load from new.	
